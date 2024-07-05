@@ -1,7 +1,7 @@
 Config = {}
 ----------------------------------------------------------------
 Config.Locale = 'de'
-Config.Debug = true
+Config.Debug = false
 ----------------------------------------------------------------
 -- !!! This function is clientside AND serverside !!!
 Config.Notification = function(source, message, typ)
@@ -21,6 +21,7 @@ Config.npcVoice = {
 }
 
 Config.PayCron = 7 -- in days // After X days the amount will be removed from player
+Config.MinBudget = 10000 -- Money that is still on the Bankaccount if Player can't pay
 ----------------------------------------------------------------
 Config.defaultTextUI = true -- Set false if you want to use a custom textui
 

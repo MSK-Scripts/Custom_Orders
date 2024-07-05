@@ -106,7 +106,7 @@ end
 
 removeCronjob = function(identifier)
     for i=1, #Jobs, 1 do
-        if Jobs[i].identifier == xPlayer.identifier then
+        if Jobs[i].identifier == identifier then
             Jobs[i] = nil
             break
         end
@@ -137,7 +137,7 @@ tickCron = function()
     local currM = tonumber(os.date('%M', currTime))
 
     for i=1, #Jobs, 1 do
-        local timestamp = CronJobs[i].timestamp
+        local timestamp = Jobs[i].timestamp
         local d = tonumber(os.date('%d', timestamp))
 	    local h = tonumber(os.date('%H', timestamp))
 	    local m = tonumber(os.date('%M', timestamp))

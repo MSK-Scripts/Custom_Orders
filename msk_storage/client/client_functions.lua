@@ -16,7 +16,6 @@ end
 exports('openStorage', openStorage)
 
 closeStorage = function(notSend)
-    logging('debug', 'closeStorage')
     isNuiOpen = false
     SetNuiFocus(false, false)
 
@@ -59,8 +58,6 @@ getAvailableStorages = function(storageId, hasStorage)
             end
         end
     end
-
-    logging('debug', #storages, storages)
 
     return storages
 end

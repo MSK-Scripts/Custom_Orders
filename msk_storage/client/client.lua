@@ -176,6 +176,7 @@ RegisterNUICallback("action", function(data)
 end)
 
 RegisterNUICallback("openStorage", function()
+    closeStorage()
     openStorageInventory()
 end)
 
