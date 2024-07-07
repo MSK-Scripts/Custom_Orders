@@ -159,7 +159,7 @@ executeCron = function(identifier)
     if xPlayer then
         local money = xPlayer.getAccount('bank').money
 
-        if money >= database[identifier].storageData.price and money >= (money - database[identifier].storageData.price) then
+        if money >= database[identifier].storageData.price and Config.MinBudget >= (money - database[identifier].storageData.price) then
             xPlayer.removeAccountMoney('bank', database[identifier].storageData.price)
         else
             removeCronjob(identifier)
@@ -170,7 +170,7 @@ executeCron = function(identifier)
             if data and data[1] then
                 local account = json.decode(data[1].accounts)
 
-                if account.bank >= database[identifier].storageData.price and account.bank >= (account.bank - database[identifier].storageData.price) then
+                if account.bank >= database[identifier].storageData.price and Config.MinBudget >= (account.bank - database[identifier].storageData.price) then
                     account.bank = account.bank - database[identifier].storageData.price
                     MySQL.update("UPDATE users SET accounts = ? WHERE identifier = ?", {json.encode(account), identifier})
                 else
