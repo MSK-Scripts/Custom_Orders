@@ -1,4 +1,3 @@
-
 body {
     margin: 0;
     padding: 0;
@@ -6,9 +5,6 @@ body {
     overflow:hidden;
     font-family: 'Rajdhani';
     user-select: none;
-    /* background-size: cover;
-    background-image:url("https://cdn.discordapp.com/attachments/703398827448729670/1222705588136448084/Screenshot_56.png?ex=6670d650&is=666f84d0&hm=6c3b6dca44bd731ec7a97a5e564191d116e3e626ae2c8791a79bcf22c58617cc&");
-    background-repeat: no-repeat; */
 }
 
 * {
@@ -40,6 +36,15 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.4);
   border-radius:0.4vh;
+}
+
+.upgrade-list-info-title {
+    position: absolute;
+    top:50%;
+    left:26vh;
+    transform:translateY(-50%);
+    font-size:1.2vh;
+    text-transform: none;
 }
 
 .white-mask {

@@ -21,13 +21,16 @@ window.addEventListener('message', function(event) {
     currentStorageId = data.storageId
     availableStorages = data.availableStorages
 
-    $("#main-title-1").text(currentStorage.title) /* Übersetzen */
-    $("#main-title-2").text(currentStorage.subtitle) /* Übersetzen */
+    $("#main-title-1").text(currentStorage.title)
+    $("#main-title-2").text(currentStorage.subtitle)
+
+    $("#info-title").text(locales.ui_info_title)
+    $("#info-text").text(locales.ui_info_text.format(data.payCron))
 
     if (!data.hasStorage) {
       showPage("buy")
-      $("#page-title-1").text(locales.ui_select_action_1) /* Übersetzen */
-      $("#page-title-2").text(locales.ui_select_action_2) /* Übersetzen */
+      $("#page-title-1").text(locales.ui_select_action_1)
+      $("#page-title-2").text(locales.ui_select_action_2)
     } else {
       showPage("main")
     }
@@ -48,8 +51,8 @@ $(document).ready(function() {
   })
 
   $(".back-button").click(function() {
-    $("#page-title-1").text(locales.ui_select_action_1) /* Übersetzen */
-    $("#page-title-2").text(locales.ui_select_action_2) /* Übersetzen */
+    $("#page-title-1").text(locales.ui_select_action_1)
+    $("#page-title-2").text(locales.ui_select_action_2)
     showPage("main")
   })
 })
@@ -121,8 +124,8 @@ function showPage(page) {
 
   if (page == "main") {
     $(".back-button").hide()
-    /* Übersetzen */
     $("#category-list").empty()
+
     $("#category-list").append(`
       <div class="main-page-category-item" id="open-storage">
         <span class="white-mask">${locales.ui_open_storage_1}</span> <span class="green-mask">${locales.ui_open_storage_2}</span>
@@ -142,12 +145,10 @@ function showPage(page) {
       if (this.id == "open-storage") {
         $.post(`https://${GetParentResourceName()}/openStorage`)
       } else if (this.id == "manage-storage") {
-        $("#page-title-1").text(locales.ui_open_upgrade_1) /* Übersetzen */
-        $("#page-title-2").text(locales.ui_open_upgrade_2) /* Übersetzen */
-        /* Lager Upgraden */
+        $("#page-title-1").text(locales.ui_open_upgrade_1)
+        $("#page-title-2").text(locales.ui_open_upgrade_2)
         showPage("upgrade")
       } else if (this.id == "cancel-storage") {
-        /* Lager Kündigen */
         togglePopup(true, "sell")
       }
     })
@@ -173,7 +174,7 @@ function showPage(page) {
                   <div class="upgrade-list-info-box-item"><span class="white-mask">Preis:</span> <span class="green-mask">$${price}</span></div>
                 </div>
             </div>
-            <button class="upgrade-list-item-button" onclick="togglePopup('${true}', 'buy', '${id}', '${encodeURIComponent(JSON.stringify(v))}')"><span class="white-mask">Kaufen</span></button>
+            <button class="upgrade-list-item-button" onclick="togglePopup('${true}', 'buy', '${id}', '${encodeURIComponent(JSON.stringify(v))}')"><span class="white-mask">${locales.ui_buy}</span></button>
           </div>
         `)
       }
@@ -198,7 +199,7 @@ function showPage(page) {
                   <div class="upgrade-list-info-box-item"><span class="white-mask">Preis:</span> <span class="green-mask">$${price}</span></div>
                 </div>
             </div>
-            <button class="upgrade-list-item-button" onclick="togglePopup('${true}', 'upgrade', '${id}', '${encodeURIComponent(JSON.stringify(v))}')"><span class="white-mask">Aufrüsten</span></button>
+            <button class="upgrade-list-item-button" onclick="togglePopup('${true}', 'upgrade', '${id}', '${encodeURIComponent(JSON.stringify(v))}')"><span class="white-mask">${locales.ui_upgrade}</span></button>
           </div>
         `)
       }
@@ -215,8 +216,8 @@ document.onkeyup = function (event) {
       if (curPage == "main" || curPage == "buy") {
         closeUI()
       } else {
-        $("#page-title-1").text(locales.ui_select_action_1) /* Übersetzen */
-        $("#page-title-2").text(locales.ui_select_action_2) /* Übersetzen */
+        $("#page-title-1").text(locales.ui_select_action_1)
+        $("#page-title-2").text(locales.ui_select_action_2)
         showPage("main")
       }
     }

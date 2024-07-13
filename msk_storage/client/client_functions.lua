@@ -6,6 +6,7 @@ openStorage = function()
     SetNuiFocus(true, true)
     SendNUIMessage({
         action = 'openUI',
+        payCron = Config.PayCron,
         locales = Translation[Config.Locale],
         hasStorage = hasStorage,
         storageId = currentStorageId,
