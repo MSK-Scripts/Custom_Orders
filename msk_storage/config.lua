@@ -21,35 +21,35 @@ Config.npcVoice = {
 }
 
 Config.PayCron = 7 -- in days // After X days the amount will be removed from player
-Config.MinBudget = 10000 -- Money that is still on the Bankaccount if Player can't pay
+Config.MinBudget = 10000 -- Money that remains on the Bankaccount if Player can't pay
 ----------------------------------------------------------------
 Config.defaultTextUI = true -- Set false if you want to use a custom textui
 
 Config.openTextUI = function(coloredText, uncoloredText)
     exports['okokTextUI']:Open(uncoloredText, 'darkblue', 'left')
-    -- exports["esx_textui"]:TextUI(uncoloredText, 'info')
 end
 
 Config.closeTextUI = function()
     exports['okokTextUI']:Close()
-    -- exports["esx_textui"]:HideUI()
 end
 ----------------------------------------------------------------
 Config.Storages = {
+    -- [id] must be a number, otherwise you'll break the script!
+
     [1] = {
-        label = {'Lagerhaus', 'Stufe 1'},
+        label = {'Warehouse', 'Tier 1'},
         price = 5000,
         weight = 1000,
         image = 'storage_1.png'
     },
     [2] = {
-        label = {'Lagerhaus', 'Stufe 2'},
+        label = {'Warehouse', 'Tier 2'},
         price = 15000,
         weight = 5000,
         image = 'storage_2.png'
     },
     [3] = {
-        label = {'Lagerhaus', 'Stufe 3'},
+        label = {'Warehouse', 'Tier 3'},
         price = 45000,
         weight = 10000,
         image = 'storage_3.png'
@@ -57,11 +57,13 @@ Config.Storages = {
 }
 
 Config.Locations = {
+    -- Marker is only available if pedmodel.enable = false
+
     ['l1'] = {
-        title = 'Lagerhaus',
+        title = 'Warehouse',
         subtitle = 'Hafen',
         storages = {1, 2, 3},
-        blip = {enable = true, label = 'Lagerhaus', id = 473, color = 2, scale = 0.8},
+        blip = {enable = true, label = 'Warehouse', id = 473, color = 2, scale = 0.8},
         pedmodel = {enable = true, model = 'csb_trafficwarden', distance = 20.0},
         marker = {enable = true, distance = 5.0, type = 27, size = {a = 1.0, b = 1.0, c = 1.0}, color = {a = 255, b = 255, c = 255}},
         locations = {
@@ -69,10 +71,10 @@ Config.Locations = {
         }
     },
     ['l2'] = {
-        title = 'Lagerhaus',
+        title = 'Warehouse',
         subtitle = 'Harmony',
         storages = {1, 2},
-        blip = {enable = true, label = 'Lagerhaus', id = 473, color = 2, scale = 0.8},
+        blip = {enable = true, label = 'Warehouse', id = 473, color = 2, scale = 0.8},
         pedmodel = {enable = true, model = 'csb_trafficwarden', distance = 20.0},
         marker = {enable = true, distance = 5.0, type = 27, size = {a = 1.0, b = 1.0, c = 1.0}, color = {a = 255, b = 255, c = 255}},
         locations = {
