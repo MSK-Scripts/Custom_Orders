@@ -1,15 +1,6 @@
 local vehicles = {}
 
 if Config.Method == 'fixed' then
-    AddEventHandler('onResourceStop', function(resourceName)
-        if resourceName ~= GetCurrentResourceName() then return end
-
-        for k, v in pairs(vehicles) do
-            DeleteVehicle(v.vehicle)
-            SetModelAsNoLongerNeeded(v.hash)
-        end
-    end)
-
     CreateThread(function()
         while true do
             local sleep = 500
@@ -17,49 +8,33 @@ if Config.Method == 'fixed' then
             for k, v in pairs(Config.Locations) do
                 local dist = #(GetEntityCoords(PlayerPedId()) - v.coords)
                 local modelHash = GetHashKey(v.model)
-                local id = modelHash .. k
                 
                 if dist <= v.distance then
-                    if not vehicles[id] or not vehicles[id].loaded then
-                        vehicles[id] = {}
+                    if not vehicles[modelHash] or not vehicles[modelHash].loaded then
+                        vehicles[modelHash] = {}
 
-                        local timeout = 0
                         RequestModel(modelHash)
                         while not HasModelLoaded(modelHash) do
-                            timeout = timeout + 1
                             Wait(0)
-
-                            if timeout == 100 then 
-                                print('^1ID ^3' .. k .. '^1 existiert nicht und wurde übersprungen!^0')
-                                break 
-                            end
                         end
-
-                        local vehicle = CreateVehicle(modelHash, v.coords.x, v.coords.y, v.coords.z, v.heading, false, false)
-                        SetEntityAsMissionEntity(vehicle, true)
+                        local vehicle = CreateVehicle(modelHash, v.coords.x, v.coords.y, v.coords.z, v.heading, true, false)
                         FreezeEntityPosition(vehicle, true)	
                         SetEntityInvincible(vehicle, true)
                         SetBlockingOfNonTemporaryEvents(vehicle, true)
                         SetVehicleDoorsLocked(vehicle, 2)
                         SetVehicleCanBeLockedOn(vehicle, false, false)
-                        SetVehicleOnGroundProperly(vehicle)
-                        SetVehRadioStation(vehicle, "OFF")
-                        SetVehicleDirtLevel(vehicle, 0.0)
                         if v.colors.enable then SetVehicleColours(vehicle, v.colors.primary, v.colors.secondary) end
                         if v.plate then SetVehicleNumberPlateText(vehicle, v.plate) end
 
-                        vehicles[id] = {
-                            loaded = true,
-                            inDistance = true,
-                            hash = modelHash,
-                            vehicle = vehicle,
-                            rotate = v.rotate,
-                            id = id
-                        }
+                        vehicles[modelHash].loaded = true
+                        vehicles[modelHash].inDistance = true
+                        vehicles[modelHash].vehicle = vehicle
+                        vehicles[modelHash].hash = modelHash
+                        vehicles[modelHash].rotate = v.rotate
                     end
                 else
-                    if vehicles[id] and vehicles[id].inDistance then
-                        vehicles[id].inDistance = false
+                    if vehicles[modelHash] and vehicles[modelHash].inDistance then
+                        vehicles[modelHash].inDistance = false
                     end
                 end
             end
@@ -68,7 +43,7 @@ if Config.Method == 'fixed' then
                 if v.loaded and not v.inDistance then
                     DeleteVehicle(v.vehicle)
                     SetModelAsNoLongerNeeded(v.hash)
-                    vehicles[v.id] = {}
+                    vehicles[v.hash] = {}
                 end
             end
             
@@ -112,6 +87,7 @@ elseif Config.Method == 'self' then
         while true do
             local sleep = 200
             inRange = false
+            while not ESX.PlayerData.job do Wait(0) end
 
             for k, v in pairs(Config.Locations) do
                 if not v.jobs.enable or (v.jobs.enable and isAllowed(v.jobs.jobs, ESX.PlayerData.job.name)) then

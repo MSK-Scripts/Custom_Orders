@@ -4,7 +4,7 @@ AddEventHandler('msk_seller:sellItem', function(itemName, amount)
     local xPlayer = ESX.GetPlayerFromId(src)
     local hasItem = xPlayer.hasItem(itemName)
 
-    if hasItem and hasItem.count > amount then
+    if hasItem and hasItem.count >= amount then
         xPlayer.removeInventoryItem(itemName, amount)
         xPlayer.addAccountMoney('money', amount * Config.Locations[itemName].price)
         xPlayer.showNotification(('Du hast erfolgreich %s %s verkauft'):format(amount, hasItem.label))

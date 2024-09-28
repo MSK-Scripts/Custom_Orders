@@ -163,6 +163,8 @@ end)
 
 function openMenu()
     logging('debug', currentRegistration.label)
+    _menuPool:Remove()
+    _menuPool = NativeUI.CreatePool()
     local background
 
     if Config.CustomBanner then

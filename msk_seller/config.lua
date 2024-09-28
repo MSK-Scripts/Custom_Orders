@@ -9,10 +9,4 @@ Config.Locations = {
         npc = 'a_f_y_business_01',
         price = 10, -- price per item
     },
-    ['item2'] = {
-        itemLabel = 'Label',
-        coords = vec4(0, 0, 0, 0),
-        npc = 'a_f_y_business_01',
-        price = 10, -- price per item
-    },
 }
